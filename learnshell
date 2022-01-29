@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# 2.1 Shell Introduction
+printf "Quoting\n"
+printf 'Special characters can be used to make 
+quoting useful. Demo: |&;<>()$\n'
+# 2.2.1 Escape character (Backslash)
+# 2.3 Token Recognition
+echo \This \Works \Too \For \Quoting
+echo $(cowsay "Command Substitution")
+echo $((4 + 4))
+# 2.5
+# ${parameter}
+a=1
+set 2 3 # Set the parameter for command
+echo ${a}b-$ab-${1}0-${10}-$10-$1
+
+# ${parameter-word}
+foo=asdf
+echo ${foo-bar}xyz
+foo=
+echo ${foo-bar}xyz
+unset foo
+echo ${foo-bar}xyz
+echo ${foo-$(ls)}
+
+# ${paramter:-word} Only executes if x is null or unset
+echo ${x:-Huh}
+# If the paramater is null, replace
+x=
+echo ${x:-huh}
+
+# ${parameter:=word} Assign default value
+X=
+echo ${X:=abc}
+echo ${X}
+
+# ${parameter:+word} Opposite of -
+set a b c
+echo ${1:+posix}
+echo ${4:+posix}
