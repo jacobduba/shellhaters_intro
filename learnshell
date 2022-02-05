@@ -39,3 +39,69 @@ echo ${X}
 set a b c
 echo ${1:+posix}
 echo ${4:+posix}
+
+# ${parameter%[word]} Remove smallest suffix that matches pattern
+x=file.c
+echo ${x%.c}.o
+
+# ${parameter%%[word]} Remove largest suffix pattern
+x=posix/src/std
+echo ${x%%/*}
+
+# ${parameter#[word]} Remove smallest prefix pattern
+x=$HOME/src/cmd
+echo ${x#$HOME}
+
+# ${parameter##[word]}
+x=/one/two/three
+echo ${x##*/}
+
+# Fun note!
+# "${x#*}" The <asterisk> is a pattern character
+# ${x#"*"} The literal <asterisk> is quoted and not special
+
+# 2.6 Command Substitution
+echo `cowsay epic`
+echo $(cowsay "also epic")
+
+# Arthmetrix expansion repeat a command 5 times
+x=5
+while [ $x -gt 0 ]
+do
+	echo Test
+	x=$(($x - 1))
+done
+
+# Field Splitting
+# What is IFS? Stands for Internal Field Seperator, character that seperates
+# fields. Can be set to \n!
+# Used for word splitting after expansion and to split lines into words with the
+# read builtin command, which pastes a string into standard input
+test="Epic
+Awesome
+Poggers"
+for i in $test
+do
+	echo $i
+done
+
+## Redirection
+# Writes awesome to the file a
+echo awesome > a
+
+## Redirecting Input
+# Finds the wordcount of the file a
+wc < a
+
+## Appending redirected output
+# Adds cool below awesome in the file a
+echo cool >> a
+
+## Here Document
+# Runs an interactive program that allows for user input
+wc -l << EOF
+Huh
+Awesome sauce
+Pogs
+$(echo "Commands word inside here")
+EOF
